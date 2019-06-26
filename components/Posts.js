@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import useRemoveFromArray from './hooks/useRemoveFromArray';
 import Post from './Post';
 
 const POSTS = [
@@ -35,15 +36,7 @@ const POSTS = [
 ];
 
 const Posts = () => {
-  const [posts, setPosts] = useState(POSTS);
-
-  const removePost = useCallback((index) => {
-    const newPosts = [
-      ...posts,
-    ];
-    newPosts.splice(index, 1);
-    setPosts(newPosts);
-  }, [posts]);
+  const [posts, removePost] = useRemoveFromArray(POSTS);
 
   return posts
     .map(props => ({
