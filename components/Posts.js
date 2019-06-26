@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Post from './Post';
 
-const posts = [
+const POSTS = [
   {
     title: 'Post title 1',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies non erat ac ultrices. Etiam nibh mauris, laoreet vel aliquet ut, pretium nec neque. Quisque auctor tincidunt lacus in placerat. Duis porttitor gravida urna, vitae sollicitudin erat finibus sit amet. Suspendisse luctus neque eget semper egestas. Vivamus eu lectus nunc. Sed vehicula nibh in quam elementum aliquam. Proin consectetur ac dolor sit amet feugiat. Nunc felis nibh, malesuada vitae ultricies vel, gravida quis nulla.',
@@ -34,11 +34,48 @@ const posts = [
   },
 ];
 
-const Posts = () => (
-  <>
-    {posts.map(({ title, description, favorite }) => <Post key={title} title={title} description={description} favorite={favorite} />)
-    }
-  </>
-);
+class Posts extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      posts: POSTS,
+    };
+
+    this.removePost = this.removePost.bind(this);
+  }
+
+  removePost(removeIndex) {
+    console.log('removePost', removeIndex);
+    const {
+      posts,
+    } = this.state;
+
+    const copyPost = [
+      ...posts,
+    ];
+
+    copyPost.splice(removeIndex, 1);
+
+    this.setState(() => ({
+      posts: [
+        ...copyPost,
+      ],
+    }));
+  }
+
+  render() {
+    const {
+      posts,
+    } = this.state;
+
+    return posts
+      .map(props => ({
+        ...props,
+        removePost: this.removePost,
+      }))
+      .map(Post);
+  }
+}
 
 export default Posts;
