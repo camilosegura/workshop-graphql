@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useCallback, useState } from 'react';
 import Post from './Post';
 
 const POSTS = [
@@ -34,48 +34,23 @@ const POSTS = [
   },
 ];
 
-class Posts extends Component {
-  constructor(props) {
-    super(props);
+const Posts = () => {
+  const [posts, setPosts] = useState(POSTS);
 
-    this.state = {
-      posts: POSTS,
-    };
-
-    this.removePost = this.removePost.bind(this);
-  }
-
-  removePost(removeIndex) {
-    console.log('removePost', removeIndex);
-    const {
-      posts,
-    } = this.state;
-
-    const copyPost = [
+  const removePost = useCallback((index) => {
+    const newPosts = [
       ...posts,
     ];
+    newPosts.splice(index, 1);
+    setPosts(newPosts);
+  }, [posts]);
 
-    copyPost.splice(removeIndex, 1);
-
-    this.setState(() => ({
-      posts: [
-        ...copyPost,
-      ],
-    }));
-  }
-
-  render() {
-    const {
-      posts,
-    } = this.state;
-
-    return posts
-      .map(props => ({
-        ...props,
-        removePost: this.removePost,
-      }))
-      .map(Post);
-  }
-}
+  return posts
+    .map(props => ({
+      ...props,
+      removePost,
+    }))
+    .map(Post);
+};
 
 export default Posts;
