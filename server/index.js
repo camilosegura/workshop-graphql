@@ -2,15 +2,17 @@ const express = require('express');
 const next = require('next');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./api');
+const config = require('../appConfig');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 3000;
 
 app.prepare()
   .then(() => {
     const server = express();
+
+    server.get('/test', (req, res) => res.send('Test response'));
 
     server.use('/graphql', graphqlHTTP({
       schema,
@@ -18,7 +20,7 @@ app.prepare()
     }));
     server.get('*', (req, res) => handle(req, res));
 
-    server.listen(port, (err) => {
+    server.listen(config.PORT, (err) => {
       if (err) {
         throw err;
       }
