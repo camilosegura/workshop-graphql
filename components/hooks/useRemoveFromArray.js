@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const useRemoveFromArray = (initialValue) => {
   const [values, setValues] = useState(initialValue);
@@ -10,6 +10,10 @@ const useRemoveFromArray = (initialValue) => {
     newValues.splice(index, 1);
     setValues(newValues);
   }, [values]);
+
+  useEffect(() => {
+    setValues(initialValue);
+  }, [initialValue]);
 
   return [
     values,

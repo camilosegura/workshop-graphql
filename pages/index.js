@@ -1,24 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import { gql } from 'apollo-boost';
-import client from '../apollo/client';
 
 const handleClick = () => {
   console.log('onClick');
-
-  client
-    .query({
-      query: gql`
-      {
-        users {
-            id
-            name
-            email
-        }
-      }
-    `,
-    })
-    .then(result => console.log(result));
 };
 
 const Home = () => (
