@@ -28,4 +28,13 @@ const useQuery = (query, opts) => {
   };
 };
 
+export const runQuery = async (query) => {
+  const response = client
+    .query({
+      query,
+    });
+
+  return response;
+};
+
 export default useQuery;
