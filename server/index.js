@@ -19,7 +19,7 @@ app.prepare()
       graphiql: true,
     }));
     server.get('*', (req, res) => handle(req, res));
-console.log('config.PORT', config.PORT)
+
     server.listen(config.PORT, (err) => {
       if (err) {
         throw err;
