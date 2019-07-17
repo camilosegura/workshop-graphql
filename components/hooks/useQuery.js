@@ -2,7 +2,7 @@ import { useState } from 'react';
 import client from '../../apollo/client';
 
 const useQuery = (query, opts) => {
-  const [data, setData] = useState({ posts: [] });
+  const [data, setData] = useState({ [opts.dataType]: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
@@ -15,7 +15,7 @@ const useQuery = (query, opts) => {
       if (result.errors && result.errors.length) {
         setError(true);
       }
- 
+
       setData(result.data);
     })
     .catch((e) => { setError(true) })

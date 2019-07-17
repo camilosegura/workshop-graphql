@@ -5,7 +5,7 @@ import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 
 const client = new ApolloClient({
-  uri: `${publicRuntimeConfig.HOST}/graphql`,
+  uri: `${publicRuntimeConfig.HOST}`,
   fetch,
 });
 
